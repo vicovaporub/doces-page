@@ -3,7 +3,7 @@ import { Products } from "./Products";
 
 export const AppContainer = () => {
   return (
-    <div className="app-container">
+    <div>
       <About />
       <Products />
     </div>

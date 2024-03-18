@@ -19,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        {children}
-        <Footer />
+        <div className="bg-gradient-to-r from-green-300 to-blue-300 h-full">
+          <NavBar />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
