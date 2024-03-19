@@ -1,7 +1,13 @@
 import Image from "next/image";
 import { products } from "../../../lib/data";
+import { AddToCartButton } from "../sub-components/AddToCartButton";
+import { useDispatch } from "react-redux";
 
 export const Products = () => {
+  const handleButtonClick = () => {
+    console.log("Button clicked");
+  };
+
   return (
     <div className="bg-[url('/images/bakery.jpg')] bg-cover bg-center sm:flex justify-between">
       <div className="sm:flex grid gap-2 justify-center sm:justify-center items-center flex-1">
@@ -21,13 +27,7 @@ export const Products = () => {
                 R$ {product.price.toFixed(2)}
               </h2>
               <p className="text-center">{product.description}</p>
-              <button
-                className="bg-gradient-to-r mt-3 from-green-600 to-blue-600 hover:from-green-400 hover:to-blue-400
-             font-bold py-2 px-4 rounded transition duration-500 ease-in-out
-             text-white"
-              >
-                Adicionar ao carrinho
-              </button>
+              <AddToCartButton onClick={handleButtonClick} />
             </div>
           );
         })}
