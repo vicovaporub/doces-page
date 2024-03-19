@@ -1,6 +1,16 @@
+"use client";
 import { AppContainer } from "@/components/main-components/AppContainer";
-import Image from "next/image";
+import { NavBar } from "@/components/main-components/NavBar";
+import { Provider } from "react-redux";
+import store from "@/redux/store";
 
 export default function Home() {
-  return <AppContainer />;
+  return (
+    <>
+      <Provider store={store}>
+        <NavBar />
+        <AppContainer />;
+      </Provider>
+    </>
+  );
 }
