@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export const NavBar = () => {
   return (
-    <nav className="flex justify-center gap-2 border border-gray-900">
+    <nav className="flex justify-center gap-2 border h-8 border-gray-900">
       <Link href="/">
         <h1>Home</h1>
       </Link>
