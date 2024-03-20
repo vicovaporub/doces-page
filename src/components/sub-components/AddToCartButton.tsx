@@ -1,10 +1,8 @@
-interface AddToCartButtonProps {
+interface CartButtonProps {
   onClick: () => void;
 }
 
-export const AddToCartButton: React.FC<AddToCartButtonProps> = ({
-  onClick,
-}) => {
+export const AddToCartButton = ({ onClick }: CartButtonProps) => {
   return (
     <button
       onClick={onClick}
