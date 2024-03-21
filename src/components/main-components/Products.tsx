@@ -2,10 +2,15 @@
 import Image from "next/image";
 import { products } from "../../../lib/data";
 import { AddToCartButton } from "../sub-components/AddToCartButton";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/features/cartSlice";
+import { ProductType } from "@/types/ProductType";
 
 export const Products = () => {
-  const handleButtonClick = () => {
-    console.log("Button clicked");
+  const dispatch = useDispatch();
+
+  const onAddToCartClick = (product: ProductType) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -27,7 +32,7 @@ export const Products = () => {
                 R$ {product.price.toFixed(2)}
               </h2>
               <p className="text-center">{product.description}</p>
-              <AddToCartButton onClick={handleButtonClick} />
+              <AddToCartButton onClick={() => onAddToCartClick(product)} />
             </div>
           );
         })}
