@@ -1,7 +1,7 @@
+"use client";
 import Image from "next/image";
 import { products } from "../../../lib/data";
 import { AddToCartButton } from "../sub-components/AddToCartButton";
-import { useDispatch } from "react-redux";
 
 export const Products = () => {
   const handleButtonClick = () => {

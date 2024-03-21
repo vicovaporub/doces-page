@@ -1,16 +1,11 @@
-"use client";
 import { AppContainer } from "@/components/main-components/AppContainer";
 import { NavBar } from "@/components/main-components/NavBar";
-import { Provider } from "react-redux";
-import store from "@/redux/store";
 
 export default function Home() {
   return (
-    <>
-      <Provider store={store}>
-        <NavBar />
-        <AppContainer />;
-      </Provider>
-    </>
+    <div className="bg-gradient-to-r from-green-300 to-blue-300 h-full">
+      <NavBar />
+      <AppContainer />;
+    </div>
   );
 }
