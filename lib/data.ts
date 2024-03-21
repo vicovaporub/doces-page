@@ -6,6 +6,7 @@ import brigadeiroDeOreo from "../public/images/brigadeiroDeOreoImg.jpg";
 import alfajor from "../public/images/alfajorImg.jpg";
 import palhaItaliana from "../public/images/palhaItalianaImg.jpg";
 import cookie from "../public/images/cookieImg.jpg";
+import { ProductType } from "@/types/ProductType";
 
 export const dessertImages = [
   {
@@ -30,7 +31,7 @@ export const dessertImages = [
   },
 ];
 
-export const products = [
+export const products: ProductType[] = [
   {
     name: "brigadeiro com oreo",
     price: 5.0,
