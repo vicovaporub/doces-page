@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { products } from "../../../lib/data";
-import { AddToCartButton } from "../sub-components/AddToCartButton";
+import { AddToCartButton } from "../buttons/AddToCartButton";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/features/cartSlice";
 import { ProductType } from "@/types/ProductType";
