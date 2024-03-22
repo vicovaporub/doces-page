@@ -1,8 +1,6 @@
-interface CartButtonProps {
-  onClick: () => void;
-}
+import { OnClickButtonProps } from "@/types/OnClickButtonProps";
 
-export const CartButton = ({ onClick }: CartButtonProps) => {
+export const CartButton = ({ onClick }: OnClickButtonProps) => {
   return (
     <div
       className="fixed top-2 right-1 bg-white border p-2 border-black"

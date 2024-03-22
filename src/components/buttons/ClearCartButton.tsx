@@ -1,4 +1,6 @@
-export const ClearCartButton = ({ onClick }: { onClick: () => void }) => {
+import { OnClickButtonProps } from "@/types/OnClickButtonProps";
+
+export const ClearCartButton = ({ onClick }: OnClickButtonProps) => {
   return (
     <button
       onClick={onClick}

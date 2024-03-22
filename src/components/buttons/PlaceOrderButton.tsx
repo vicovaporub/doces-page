@@ -1,4 +1,6 @@
-export const PlaceOrderButton = ({ onClick }: { onClick: () => void }) => {
+import { OnClickButtonProps } from "@/types/OnClickButtonProps";
+
+export const PlaceOrderButton = ({ onClick }: OnClickButtonProps) => {
   return (
     <button
       onClick={onClick}
