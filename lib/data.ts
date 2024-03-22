@@ -33,24 +33,28 @@ export const dessertImages = [
 
 export const products: ProductType[] = [
   {
+    id: 1,
     name: "brigadeiro com oreo",
     price: 5.0,
     description: "Brigadeiro com oreo é uma delícia",
     image: brigadeiroDeOreo,
   },
   {
+    id: 2,
     name: "alfajor",
     price: 3.0,
     description: "Alfajor é uma delícia",
     image: alfajor,
   },
   {
+    id: 3,
     name: "palha italiana",
     price: 4.0,
     description: "Palha italiana é uma delícia",
     image: palhaItaliana,
   },
   {
+    id: 4,
     name: "cookie",
     price: 2.0,
     description: "Cookie é uma delícia",

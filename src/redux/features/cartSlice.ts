@@ -2,12 +2,12 @@ import { ProductType } from "@/types/ProductType";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CartState {
-  items: ProductType[];
+  products: ProductType[];
   price: number;
 }
 
 const initialState: CartState = {
-  items: [],
+  products: [],
   price: 0,
 };
 
@@ -18,10 +18,24 @@ export const cart = createSlice({
   reducers: {
     clearCart: () => initialState,
     addToCart: (state, action: PayloadAction<ProductType>) => {
+      const isProductOnCart = state.products.some(
+        (product) => product.id === action.payload.id
+      );
+
+      if (isProductOnCart) {
+        return {
+          ...state,
+          products: state.products.map((product) =>
+            product.id === action.payload.id
+              ? { ...product, quantity: (product.quantity || 0) + 1 }
+              : product
+          ),
+        };
+      }
+
       return {
         ...state,
-        items: [...state.items, action.payload],
-        price: state.price + action.payload.price,
+        products: [...state.products, { ...action.payload, quantity: 1 }],
       };
     },
   },
