@@ -1,3 +1,4 @@
+import { UserType } from "@/types/UserType";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -18,12 +19,12 @@ export const auth = createSlice({
       return initialState;
     },
 
-    logIn: (state, action: PayloadAction<string>) => {
+    logIn: (state, action: PayloadAction<UserType>) => {
       return {
         value: {
           isLogged: true,
-          username: "",
-          phone: action.payload,
+          username: action.payload.username,
+          phone: action.payload.phone,
           isModerator: false,
         },
       };
