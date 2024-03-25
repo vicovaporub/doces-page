@@ -1,5 +1,7 @@
+"use client";
 import { AppContainer } from "@/components/main-components/AppContainer";
 import { NavBar } from "@/components/main-components/NavBar";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   return (
