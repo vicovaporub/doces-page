@@ -1,6 +1,5 @@
 "use client";
 import { logIn, logOut } from "@/redux/features/authSlice";
-import { useAppSelector } from "@/redux/store";
 import { UserType } from "@/types/UserType";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -20,6 +19,7 @@ export const Login = () => {
 
   const onLogoutButtonClick = () => {
     setIsUserLoggedIn(false);
+    setIsRegisterHidden(true);
     dispatch(logOut());
   };
 
@@ -38,6 +38,7 @@ export const Login = () => {
         const user = data.user as UserType;
         dispatch(logIn({ username: user.username, phone: user.phone }));
         setIsUserLoggedIn(true);
+        setIsLoginHidden(true);
       } else if (response.status === 404) {
         setIsRegisterHidden(false);
       } else {
@@ -60,7 +61,10 @@ export const Login = () => {
       const data = await response.json();
 
       if (response.status === 200) {
-        console.log("Registration Successfull");
+        const user = data.user;
+        dispatch(logIn({ username: user.username, phone: user.phone }));
+        setIsLoginHidden(true);
+        setIsUserLoggedIn(true);
       }
     } catch (error) {
       console.error("Error:", error);
