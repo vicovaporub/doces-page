@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   try {
     const client = await connectToDatabase();
-    const db = client.db("doces-carol-users");
+    const db = client.db("doces-carol");
     const collection = db.collection("users");
 
     if (req.method === "POST") {

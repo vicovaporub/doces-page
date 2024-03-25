@@ -8,7 +8,7 @@ export default async function handler(
 ) {
   try {
     const client = await connectToDatabase();
-    const db = client.db("doces-carol-users");
+    const db = client.db("doces-carol");
     const collection = db.collection("users");
 
     if (req.method === "POST") {
@@ -21,9 +21,8 @@ export default async function handler(
           username: data.username,
           phone: data.phone,
         };
-        console.log(newUser);
         await collection.insertOne(newUser);
-        res.status(200).json({ message: "User created" });
+        res.status(200).json({ message: "User created", user: newUser });
       }
     } else {
       return;
