@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Login } from "../sub-components/Login";
 import { UserType } from "@/types/UserType";

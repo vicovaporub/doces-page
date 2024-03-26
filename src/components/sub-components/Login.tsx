@@ -1,5 +1,6 @@
 "use client";
 import { logIn, logOut } from "@/redux/features/authSlice";
+import { useAppSelector } from "@/redux/store";
 import { UserType } from "@/types/UserType";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -11,10 +12,12 @@ export const Login = () => {
   const [isRegisterHidden, setIsRegisterHidden] = useState(true);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
+  const user = useAppSelector((state) => state.authReducer.value);
+
   const dispatch = useDispatch();
 
   const isValidPhoneNumber = (phone: string) => {
-    const brPhoneRegex = /^[1-9]{2}9[0-9]{8}$/;
+    const brPhoneRegex = /^\([1-9]{2}\)\s?9[0-9]{4}-[0-9]{4}$/;
     return brPhoneRegex.test(phone);
   };
 
@@ -59,9 +62,25 @@ export const Login = () => {
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPhone(e.target.value);
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 2) {
+      value = `(${value.substring(0, 2)}) ${value.substring(2)}`;
+    }
+    if (value.length > 10) {
+      value = `${value.substring(0, 10)}-${value.substring(10)}`;
+    }
+    setPhone(value);
   };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
+
   const onRegisterButtonClick = async (username: string, phone: string) => {
+    if (!isValidPhoneNumber(phone) || username.trim().indexOf(" ") === -1) {
+      console.error("Invalid phone number or username");
+      return;
+    }
     try {
       const response = await fetch("/api/registration", {
         method: "POST",
@@ -85,7 +104,7 @@ export const Login = () => {
 
   return (
     <div className="p-4 relative w-[300px]">
-      {isUserLoggedIn === false ? (
+      {user.isLogged === false ? (
         <button
           onClick={onLoginButtonClick}
           className="btn btn-primary bg-black text-white py-2 px-4 rounded"
@@ -113,8 +132,7 @@ export const Login = () => {
             name="phone"
             value={phone}
             onChange={handlePhoneNumberChange}
-            placeholder=""
-            pattern="[0-9]{2}[0-9]{5}[0-9]{4}"
+            placeholder="(__) _____-____"
             required
           />
           {isRegisterHidden === false && (
@@ -123,12 +141,15 @@ export const Login = () => {
                 Não encontramos seu número na base de dados, por favor
                 cadastre-o com seu nome completo abaixo:
               </p>
-              <h1 className="text-2xl font-bold mb-4">Nome</h1>
+              <label htmlFor="name" className="text-2xl font-bold mb-4">
+                Nome Completo
+              </label>
               <input
                 className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
                 type="text"
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Nome Completo"
+                onChange={handleUsernameChange}
+                value={username}
+                placeholder="Nome"
               />
               <button
                 onClick={() => onRegisterButtonClick(username, phone)}
