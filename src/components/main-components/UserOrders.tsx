@@ -3,13 +3,13 @@ import { useAppSelector } from "@/redux/store";
 import { OrderType } from "@/types/OrderType";
 import { useEffect, useState } from "react";
 
-export const Orders = () => {
+export const UserOrders = () => {
   const user = useAppSelector((state) => state.authReducer.value);
   const [userOrders, setUserOrders] = useState([] as OrderType[]);
 
   const getUserOrders = async () => {
     try {
-      const response = await fetch(`/api/getOrders?phone=${user.phone}`, {
+      const response = await fetch(`/api/getUserOrders?phone=${user.phone}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,21 +31,23 @@ export const Orders = () => {
       <div className="flex flex-col gap-2">
         <h1>Hello {user.username}, here are your orders:</h1>
         <ul>
-          {userOrders.map((order) => (
-            <li className="border border-gray-900" key={order._id}>
-              <ol>
-                {order.order.map((product) => (
-                  <li key={product.name}>
-                    <ol>
-                      <li>Produto: {product.name}</li>
-                      <li>Quantidade: {product.quantity}</li>
-                    </ol>
-                  </li>
-                ))}
-                <li>Total: {order.total}</li>
-              </ol>
-            </li>
-          ))}
+          {userOrders
+            .map((order) => (
+              <li className="border border-gray-900" key={order._id}>
+                <ol>
+                  {order.order.map((product) => (
+                    <li key={product.name}>
+                      <ol>
+                        <li>Produto: {product.name}</li>
+                        <li>Quantidade: {product.quantity}</li>
+                      </ol>
+                    </li>
+                  ))}
+                  <li>Total: {order.total}</li>
+                </ol>
+              </li>
+            ))
+            .reverse()}
         </ul>
       </div>
     </>
