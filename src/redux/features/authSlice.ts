@@ -26,7 +26,10 @@ export const auth = createSlice({
           isLogged: true,
           username: action.payload.username,
           phone: action.payload.phone,
-          isModerator: false,
+          isModerator:
+            action.payload.isModerator !== undefined
+              ? action.payload.isModerator
+              : false,
         },
       };
       localStorage.setItem("auth", JSON.stringify(newState.value));
