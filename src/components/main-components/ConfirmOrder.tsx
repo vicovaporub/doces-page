@@ -1,8 +1,10 @@
+"use client";
 import { useAppSelector } from "@/redux/store";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image";
 import { PlaceOrderButton } from "../buttons/PlaceOrderButton";
 import { BackToCartButton } from "../buttons/BackToCartButton";
+import { OrderType } from "@/types/OrderType";
 
 export const ConfirmOrder = ({
   setIsCheckoutVisible,
@@ -10,7 +12,6 @@ export const ConfirmOrder = ({
   setIsCheckoutVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const cartList = useAppSelector((state) => state.cartReducer.products);
-  const user = useAppSelector((state) => state.authReducer.value);
 
   const productBundlePrice = (product: ProductType) => {
     return (product.price * (product.quantity || 0)).toFixed(2);
@@ -21,10 +22,27 @@ export const ConfirmOrder = ({
     0
   );
 
-  const onPlaceOrderClick = () => {
-    console.log(
-      "TODO: Implementar a lógica de envio do pedido para o servidor"
-    );
+  const order = useAppSelector((state) => state.orderReducer.order);
+
+  const onPlaceOrderClick = async (order: OrderType) => {
+    try {
+      const response = await fetch("/api/placeOrder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(order),
+      });
+
+      if (response.status === 200) {
+        console.log("Pedido realizado com sucesso!");
+        setIsCheckoutVisible(false);
+      } else {
+        console.log("Erro ao realizar pedido!");
+      }
+    } catch (error) {
+      console.error("Erro ao realizar pedido:", error);
+    }
   };
 
   const onBackToCartButton = () => {
@@ -58,7 +76,7 @@ export const ConfirmOrder = ({
       })}
       <h1>TOTAL: R${orderPrice.toFixed(2)}</h1>
       <BackToCartButton onClick={onBackToCartButton} />
-      <PlaceOrderButton onClick={onPlaceOrderClick} />
+      <PlaceOrderButton onClick={() => onPlaceOrderClick(order)} />
     </div>
   );
 };

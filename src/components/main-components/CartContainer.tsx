@@ -1,20 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartButton } from "../buttons/CartButton";
 import { CartOrder } from "./CartOrder";
 import { CheckoutButton } from "../buttons/CheckoutButton";
 import { ConfirmOrder } from "./ConfirmOrder";
+import { OrderType } from "@/types/OrderType";
+import { useAppSelector } from "@/redux/store";
+import { checkoutOrder } from "@/redux/features/orderSlice";
+import { useDispatch } from "react-redux";
 
 export const CartContainer = () => {
+  const [order, setOrder] = useState({} as OrderType);
   const [isCartContainerHidden, setIsCartContainerHidden] = useState(true);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  const user = useAppSelector((state) => state.authReducer.value);
+  const cartList = useAppSelector((state) => state.cartReducer.products);
+
+  const orderPrice = cartList
+    .reduce(
+      (total, product) => total + product.price * (product.quantity || 0),
+      0
+    )
+    .toFixed(2);
+
+  useEffect(() => {
+    if (Object.keys(order).length !== 0) {
+      dispatch(checkoutOrder(order));
+      setIsCheckoutVisible(true);
+    }
+  }, [order, dispatch]);
 
   const onCartButtonClick = () => {
     setIsCartContainerHidden(!isCartContainerHidden);
     setIsCheckoutVisible(false);
   };
 
-  const onPlaceOrderClick = () => {
-    setIsCheckoutVisible(true);
+  const onCheckoutClick = () => {
+    if (user.isLogged === false) {
+      console.log("Você precisa estar logado para fazer um pedido!");
+      return;
+    }
+
+    const orderItems = cartList.map((product) => ({
+      name: product.name,
+      price: product.price.toFixed(2),
+      quantity: product.quantity || 0,
+    }));
+
+    setOrder((prevOrder) => ({
+      ...prevOrder,
+      username: user.username,
+      phone: user.phone,
+      order: orderItems,
+      total: orderPrice,
+    }));
   };
 
   return (
@@ -25,7 +65,7 @@ export const CartContainer = () => {
           {isCheckoutVisible === false ? (
             <>
               <CartOrder />
-              <CheckoutButton onClick={onPlaceOrderClick} />
+              <CheckoutButton onClick={onCheckoutClick} />
             </>
           ) : (
             <ConfirmOrder setIsCheckoutVisible={setIsCheckoutVisible} />
