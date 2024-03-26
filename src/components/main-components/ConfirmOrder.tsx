@@ -5,13 +5,18 @@ import Image from "next/image";
 import { PlaceOrderButton } from "../buttons/PlaceOrderButton";
 import { BackToCartButton } from "../buttons/BackToCartButton";
 import { OrderType } from "@/types/OrderType";
+import { useDispatch } from "react-redux";
+import { clearCart } from "@/redux/features/cartSlice";
 
 export const ConfirmOrder = ({
   setIsCheckoutVisible,
+  setIsOrderPlaced,
 }: {
   setIsCheckoutVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOrderPlaced: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const cartList = useAppSelector((state) => state.cartReducer.products);
+  const dispatch = useDispatch();
 
   const productBundlePrice = (product: ProductType) => {
     return (product.price * (product.quantity || 0)).toFixed(2);
@@ -37,6 +42,8 @@ export const ConfirmOrder = ({
       if (response.status === 200) {
         console.log("Pedido realizado com sucesso!");
         setIsCheckoutVisible(false);
+        dispatch(clearCart());
+        setIsOrderPlaced(true);
       } else {
         console.log("Erro ao realizar pedido!");
       }

@@ -12,6 +12,7 @@ export const CartContainer = () => {
   const [order, setOrder] = useState({} as OrderType);
   const [isCartContainerHidden, setIsCartContainerHidden] = useState(true);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
+  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const dispatch = useDispatch();
 
   const user = useAppSelector((state) => state.authReducer.value);
@@ -64,11 +65,20 @@ export const CartContainer = () => {
         <div className="fixed top-12 right-1 h-[80vh] w-[40vh] bg-white p-4 bg-opacity-90 overflow-auto rounded-lg shadow-lg">
           {isCheckoutVisible === false ? (
             <>
-              <CartOrder />
-              <CheckoutButton onClick={onCheckoutClick} />
+              {isOrderPlaced ? (
+                <h1>Pedido realizado com sucesso!</h1>
+              ) : (
+                <>
+                  <CartOrder />
+                  <CheckoutButton onClick={onCheckoutClick} />
+                </>
+              )}
             </>
           ) : (
-            <ConfirmOrder setIsCheckoutVisible={setIsCheckoutVisible} />
+            <ConfirmOrder
+              setIsCheckoutVisible={setIsCheckoutVisible}
+              setIsOrderPlaced={setIsOrderPlaced}
+            />
           )}
         </div>
       )}
