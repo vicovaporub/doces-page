@@ -8,12 +8,10 @@ import { OrderType } from "@/types/OrderType";
 import { useDispatch } from "react-redux";
 import { clearCart } from "@/redux/features/cartSlice";
 
-export const ConfirmOrder = ({
+export const Checkout = ({
   setIsCheckoutVisible,
-  setIsOrderPlaced,
 }: {
   setIsCheckoutVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsOrderPlaced: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const cartList = useAppSelector((state) => state.cartReducer.products);
   const dispatch = useDispatch();
@@ -43,7 +41,7 @@ export const ConfirmOrder = ({
         console.log("Pedido realizado com sucesso!");
         setIsCheckoutVisible(false);
         dispatch(clearCart());
-        setIsOrderPlaced(true);
+        window.location.href = "/user-orders";
       } else {
         console.log("Erro ao realizar pedido!");
       }
