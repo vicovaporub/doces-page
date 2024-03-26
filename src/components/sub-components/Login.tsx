@@ -48,7 +48,13 @@ export const Login = () => {
 
       if (response.status === 200) {
         const user = data.user as UserType;
-        dispatch(logIn({ username: user.username, phone: user.phone }));
+        dispatch(
+          logIn({
+            username: user.username,
+            phone: user.phone,
+            isModerator: user?.isModerator,
+          })
+        );
         setIsUserLoggedIn(true);
         setIsLoginHidden(true);
       } else if (response.status === 404) {
