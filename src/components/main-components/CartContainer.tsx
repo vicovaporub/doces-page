@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CartButton } from "../buttons/CartButton";
 import { CartOrder } from "./CartOrder";
 import { CheckoutButton } from "../buttons/CheckoutButton";
-import { ConfirmOrder } from "./ConfirmOrder";
+import { Checkout } from "./Checkout";
 import { OrderType } from "@/types/OrderType";
 import { useAppSelector } from "@/redux/store";
 import { checkoutOrder } from "@/redux/features/orderSlice";
@@ -12,7 +12,6 @@ export const CartContainer = () => {
   const [order, setOrder] = useState({} as OrderType);
   const [isCartContainerHidden, setIsCartContainerHidden] = useState(true);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
-  const [isOrderPlaced, setIsOrderPlaced] = useState(false);
   const dispatch = useDispatch();
 
   const user = useAppSelector((state) => state.authReducer.value);
@@ -65,20 +64,11 @@ export const CartContainer = () => {
         <div className="fixed top-12 right-1 h-[80vh] w-[40vh] bg-white p-4 bg-opacity-90 overflow-auto rounded-lg shadow-lg">
           {isCheckoutVisible === false ? (
             <>
-              {isOrderPlaced ? (
-                <h1>Pedido realizado com sucesso!</h1>
-              ) : (
-                <>
-                  <CartOrder />
-                  <CheckoutButton onClick={onCheckoutClick} />
-                </>
-              )}
+              <CartOrder />
+              <CheckoutButton onClick={onCheckoutClick} />
             </>
           ) : (
-            <ConfirmOrder
-              setIsCheckoutVisible={setIsCheckoutVisible}
-              setIsOrderPlaced={setIsOrderPlaced}
-            />
+            <Checkout setIsCheckoutVisible={setIsCheckoutVisible} />
           )}
         </div>
       )}
