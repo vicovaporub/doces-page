@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "@/redux/provider";
+import { NavBar } from "@/components/main-components/NavBar";
+import AuthStateLoader from "@/redux/AuthStateLoader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <AuthStateLoader>
+            <div className="bg-gradient-to-r from-green-300 to-blue-300 h-full">
+              <NavBar />
+              {children}
+            </div>
+          </AuthStateLoader>
+        </ReduxProvider>
       </body>
     </html>
   );
