@@ -16,11 +16,12 @@ export const auth = createSlice({
 
   reducers: {
     logOut: () => {
+      localStorage.removeItem("auth");
       return initialState;
     },
 
     logIn: (state, action: PayloadAction<UserType>) => {
-      return {
+      const newState = {
         value: {
           isLogged: true,
           username: action.payload.username,
@@ -28,10 +29,22 @@ export const auth = createSlice({
           isModerator: false,
         },
       };
+      localStorage.setItem("auth", JSON.stringify(newState.value));
+      return newState;
+    },
+
+    loadAuthState: (state) => {
+      const storedAuthState = localStorage.getItem("auth");
+      if (storedAuthState) {
+        return {
+          value: JSON.parse(storedAuthState),
+        };
+      }
+      return state;
     },
   },
 });
 
-export const { logOut, logIn } = auth.actions;
+export const { logOut, logIn, loadAuthState } = auth.actions;
 
 export default auth.reducer;
