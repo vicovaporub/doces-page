@@ -13,6 +13,11 @@ export const Login = () => {
 
   const dispatch = useDispatch();
 
+  const isValidPhoneNumber = (phone: string) => {
+    const brPhoneRegex = /^[1-9]{2}9[0-9]{8}$/;
+    return brPhoneRegex.test(phone);
+  };
+
   const onLoginButtonClick = () => {
     setIsLoginHidden(!isLoginHidden);
   };
@@ -24,6 +29,10 @@ export const Login = () => {
   };
 
   const onAuthClick = async (phone: string) => {
+    if (!isValidPhoneNumber(phone)) {
+      console.error("Invalid phone number");
+      return;
+    }
     try {
       const response = await fetch("/api/usersData", {
         method: "POST",
@@ -49,6 +58,9 @@ export const Login = () => {
     }
   };
 
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
+  };
   const onRegisterButtonClick = async (username: string, phone: string) => {
     try {
       const response = await fetch("/api/registration", {
@@ -91,12 +103,19 @@ export const Login = () => {
 
       {!isLoginHidden && (
         <div className="absolute bg-white bg-opacity-70 border border-gray-900 p-4 rounded-md shadow-lg">
-          <h1 className="text-2xl font-bold mb-4">Celular</h1>
+          <label htmlFor="phone" className="text-2xl font-bold mb-4">
+            Celular
+          </label>
           <input
             className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
-            type="text"
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Celular"
+            type="tel"
+            id="phone"
+            name="phone"
+            value={phone}
+            onChange={handlePhoneNumberChange}
+            placeholder=""
+            pattern="[0-9]{2}[0-9]{5}[0-9]{4}"
+            required
           />
           {isRegisterHidden === false && (
             <>

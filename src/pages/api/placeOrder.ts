@@ -9,7 +9,7 @@ export default async function handler(
   try {
     const client = await connectToDatabase();
     const db = client.db("doces-carol");
-    const collection = db.collection("users");
+    const collection = db.collection("orders");
 
     if (req.method === "POST") {
       const data = req.body;
