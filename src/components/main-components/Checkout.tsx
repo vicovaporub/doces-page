@@ -41,7 +41,7 @@ export const Checkout = ({
         console.log("Pedido realizado com sucesso!");
         setIsCheckoutVisible(false);
         dispatch(clearCart());
-        window.location.href = "/user-orders";
+        window.location.href = "/user-orders?orderPlaced=true";
       } else {
         console.log("Erro ao realizar pedido!");
       }
