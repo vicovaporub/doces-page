@@ -1,5 +1,6 @@
 export interface OrderType {
   _id?: string;
+  date: string;
   username: string;
   phone: string;
   order: {
@@ -8,4 +9,5 @@ export interface OrderType {
     quantity: number;
   }[];
   total: string;
+  status: string;
 }

@@ -18,6 +18,8 @@ export default async function handler(
         phone: data.phone,
         order: data.order,
         total: data.total,
+        date: data.date,
+        status: data.status,
       };
 
       await collection.insertOne(newOrder);
