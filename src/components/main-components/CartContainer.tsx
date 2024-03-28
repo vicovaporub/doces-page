@@ -66,7 +66,7 @@ export const CartContainer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <>
       <CartButton onClick={onCartButtonClick} />
       {!isCartContainerHidden && (
         <div className="fixed top-12 right-1 h-[80vh] w-[40vh] bg-white p-4 bg-opacity-90 overflow-auto rounded-lg shadow-lg">
@@ -80,6 +80,6 @@ export const CartContainer = () => {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 };
