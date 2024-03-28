@@ -4,6 +4,8 @@ import { useAppSelector } from "@/redux/store";
 import { UserType } from "@/types/UserType";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import userIcon from "../../../public/userIcon.svg";
+import Image from "next/image";
 
 export const Login = () => {
   const [phone, setPhone] = useState("");
@@ -108,70 +110,98 @@ export const Login = () => {
     }
   };
 
+  const userFirstName = user.username.split(" ")[0];
+
   return (
-    <div className="p-4 relative w-[300px]">
-      {user.isLogged === false ? (
-        <button
+    <div className="relative justify-center items-center text-center w-[90px] cursor-pointer">
+      {user.isLogged ? (
+        <div
           onClick={onLoginButtonClick}
-          className="btn btn-primary bg-black text-white py-2 px-4 rounded"
+          className="flex flex-col items-center justify-center"
         >
-          Conectar
-        </button>
+          <Image
+            className="sm:h-[40px] sm:w-[40px]"
+            src={userIcon}
+            width={35}
+            height={35}
+            alt="user-icon"
+          />
+          <p className="text-sm font-bold">Olá, {userFirstName}</p>
+        </div>
       ) : (
-        <button
-          onClick={onLogoutButtonClick}
-          className="btn btn-primary bg-black text-white py-2 px-4 rounded"
+        <div
+          onClick={onLoginButtonClick}
+          className="flex flex-col items-center justify-center"
         >
-          Sair
-        </button>
+          <Image
+            className="sm:h-[40px] sm:w-[40px]"
+            src={userIcon}
+            width={35}
+            height={35}
+            alt="user-icon"
+          />
+          <p className="text-sm font-bold">Faça o login</p>
+        </div>
       )}
 
       {!isLoginHidden && (
-        <div className="absolute bg-white bg-opacity-70 border border-gray-900 p-4 rounded-md shadow-lg">
-          <label htmlFor="phone" className="text-2xl font-bold mb-4">
-            Celular
-          </label>
-          <input
-            className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
-            type="tel"
-            id="phone"
-            name="phone"
-            value={phone}
-            onChange={handlePhoneNumberChange}
-            placeholder="(__) _____-____"
-            required
-          />
-          {isRegisterHidden === false && (
+        <div
+          className="absolute left-1/2 transform -translate-x-1/2 bg-white bg-opacity-70 border
+        w-[195px] justify-center border-gray-900 p-4 rounded-md shadow-lg"
+        >
+          {user.isLogged ? (
             <>
-              <p className="text-red-600 text-xs">
-                Não encontramos seu número na base de dados, por favor
-                cadastre-o com seu nome completo abaixo:
-              </p>
-              <label htmlFor="name" className="text-2xl font-bold mb-4">
-                Nome Completo
+              <h1> ola {user.username}</h1>
+              <button onClick={onLogoutButtonClick}>Logout</button>
+            </>
+          ) : (
+            <>
+              <label htmlFor="phone" className="text-2xl font-bold mb-4">
+                WhatsApp
               </label>
               <input
                 className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
-                type="text"
-                onChange={handleUsernameChange}
-                value={username}
-                placeholder="Nome"
+                type="tel"
+                id="phone"
+                name="phone"
+                value={phone}
+                onChange={handlePhoneNumberChange}
+                placeholder="(__) _____-____"
+                required
               />
-              <button
-                onClick={() => onRegisterButtonClick(username, phone)}
-                className="btn btn-primary bg-black text-white py-2 px-4 rounded"
-              >
-                Cadastrar
-              </button>
+              {isRegisterHidden === false && (
+                <>
+                  <p className="text-red-600 text-xs">
+                    Não encontramos seu número na base de dados, por favor
+                    cadastre-o com seu nome completo abaixo:
+                  </p>
+                  <label htmlFor="name" className="text-2xl font-bold mb-4">
+                    Nome Completo
+                  </label>
+                  <input
+                    className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
+                    type="text"
+                    onChange={handleUsernameChange}
+                    value={username}
+                    placeholder="Nome"
+                  />
+                  <button
+                    onClick={() => onRegisterButtonClick(username, phone)}
+                    className="btn btn-primary bg-black text-white py-2 px-4 rounded"
+                  >
+                    Cadastrar
+                  </button>
+                </>
+              )}
+              {isRegisterHidden && (
+                <button
+                  onClick={() => onAuthClick(phone)}
+                  className="btn btn-primary bg-black text-white py-2 px-4 rounded"
+                >
+                  Entrar
+                </button>
+              )}
             </>
-          )}
-          {isRegisterHidden && (
-            <button
-              onClick={() => onAuthClick(phone)}
-              className="btn btn-primary bg-black text-white py-2 px-4 rounded"
-            >
-              Entrar
-            </button>
           )}
         </div>
       )}
