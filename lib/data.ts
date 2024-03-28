@@ -1,23 +1,35 @@
-import cakeImg from "../public/images/cakeImg.jpg";
 import paveImg from "../public/images/paveImg.jpg";
-import chocolatePuddingImg from "../public/images/chocolatePuddingImg.jpg";
 import blueberryCakeImg from "../public/images/blueberryCakeImg.jpg";
 import brigadeiroDeOreo from "../public/images/brigadeiroDeOreoImg.jpg";
 import alfajor from "../public/images/alfajorImg.jpg";
 import palhaItaliana from "../public/images/palhaItalianaImg.jpg";
 import cookie from "../public/images/cookieImg.jpg";
+import aquelaPalha from "../public/images/aquelaPalha.jpg";
 import { ProductType } from "@/types/ProductType";
+import boloCortado from "../public/images/boloCortado.jpg";
+import boloFruta from "../public/images/boloFruta.jpg";
+import cheesecake from "../public/images/cheesecake.jpg";
 
 export const dessertImages = [
   {
-    name: "cake",
-    src: cakeImg,
-    alt: "cake",
+    name: "aquela palha",
+    src: aquelaPalha,
+    alt: "aquela palha",
   },
   {
-    name: "chocolate pudding",
-    src: chocolatePuddingImg,
-    alt: "chocolate pudding",
+    name: "bolo cortado",
+    src: boloCortado,
+    alt: "bolo cortado",
+  },
+  {
+    name: "cheesecake",
+    src: cheesecake,
+    alt: "cheesecake",
+  },
+  {
+    name: "bolo fruta",
+    src: boloFruta,
+    alt: "bolo fruta",
   },
   {
     name: "pave",
