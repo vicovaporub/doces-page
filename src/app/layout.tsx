@@ -4,6 +4,7 @@ import "./globals.css";
 import { ReduxProvider } from "@/redux/provider";
 import { NavBar } from "@/components/main-components/NavBar";
 import AuthStateLoader from "@/redux/AuthStateLoader";
+import { Footer } from "@/components/sub-components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} `}>
+      <body
+        className={`${inter.className} relative`}
+        style={{ overflowX: "hidden" }}
+      >
         <ReduxProvider>
           <AuthStateLoader>
             <NavBar />
             {children}
+            <Footer />
           </AuthStateLoader>
         </ReduxProvider>
       </body>
