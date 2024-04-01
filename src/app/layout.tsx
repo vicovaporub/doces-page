@@ -19,12 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} relative`}>
-        <div
-          className="bg-orange-100 sm:mt-20 absolute top-[-6rem] -z-10 sm:left-[45rem]
-         sm:h-[40.25rem] sm:w-[70rem] rounded-full blur-[10rem] 
-         "
-        ></div>
+      <body className={`${inter.className} `}>
         <ReduxProvider>
           <AuthStateLoader>
             <NavBar />
