@@ -113,7 +113,10 @@ export const Login = () => {
   const userFirstName = user.username.split(" ")[0];
 
   return (
-    <div className="relative justify-center items-center text-center w-[90px] cursor-pointer">
+    <div
+      className="relative justify-center items-center text-center w-[90px] cursor-pointer"
+      style={{ zIndex: 9999 }}
+    >
       {user.isLogged ? (
         <div
           onClick={onLoginButtonClick}

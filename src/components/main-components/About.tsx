@@ -8,17 +8,15 @@ export const About = () => {
 
   return (
     <>
-      <div className="flex relative justify-between ">
+      <div className="sm:flex sm:relative sm:justify-between">
         <div
-          className="bg-orange-100 sm:mt-20 absolute top-[-6rem] -z-10 sm:left-[30rem]
-         sm:h-[55rem] sm:w-[100rem] rounded-full blur-[10rem] 
-         "
-        ></div>
-        <div className="flex flex-col items-center  sm:ml-[25vh]  h-[240px] w-[500px]">
-          <h1 className="font-bold pt-[20vh] text-amber-800 text-[40px]">
+          className="sm:flex sm:flex-col items-center 
+        sm:ml-[25vh] sm:h-[240px] h-auto sm:pt-0 pt-8  sm:w-[500px]"
+        >
+          <h1 className="font-bold sm:pt-[20vh] text-center text-amber-800 text-[40px]">
             Doces da Carol
           </h1>
-          <h2 className="py-10">
+          <h2 className="sm:py-10 p-4">
             Olá, essa aqui é a página dos asdoces da carol. Esse aqui é só um
             texto que eu to colocando para encher linguiça ta bom caroline?
           </h2>
@@ -37,9 +35,9 @@ export const About = () => {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="hidden sm:flex sm:flex-col">
           <Image
-            className="sm:mr-10 sm:mt-16  px-2"
+            className="sm:mr-10 sm:mt-16 px-2 h-[100px] w-[150px] sm:h-[481px] sm:w-[666px]"
             src={displayCake}
             alt="display-cake"
             width={666}
@@ -47,12 +45,12 @@ export const About = () => {
           />
           <div
             className="sm:h-[201px] sm:w-[666px] bg-white
-  flex rounded-full m-10 items-center  bg-opacity-30 overflow-x-scroll
-  overflow-y-hidden custom-scrollbar p-2 "
+        flex rounded-full m-10 items-center bg-opacity-30 overflow-x-scroll
+        overflow-y-hidden custom-scrollbar p-2"
           >
             {dataImgs.map((img) => (
               <Image
-                className="m-2 p-2 rounded-full w-[150px] h-[150px]  object-cover"
+                className="m-2 p-2 rounded-full w-[150px] h-[150px] object-cover"
                 key={img.name}
                 src={img.src}
                 alt={img.alt}
