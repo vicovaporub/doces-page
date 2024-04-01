@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CartButton } from "../buttons/CartButton";
 import { CartOrder } from "./CartOrder";
 import { CheckoutButton } from "../buttons/CheckoutButton";
@@ -13,6 +13,7 @@ export const CartContainer = () => {
   const [isCartContainerHidden, setIsCartContainerHidden] = useState(true);
   const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
   const dispatch = useDispatch();
+  const cartRef = useRef<HTMLDivElement>(null);
 
   const user = useAppSelector((state) => state.authReducer.value);
   const cartList = useAppSelector((state) => state.cartReducer.products);
@@ -23,6 +24,21 @@ export const CartContainer = () => {
       0
     )
     .toFixed(2);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
+        setIsCartContainerHidden(true);
+        setIsCheckoutVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (Object.keys(order).length !== 0) {
@@ -69,7 +85,12 @@ export const CartContainer = () => {
     <>
       <CartButton onClick={onCartButtonClick} />
       {!isCartContainerHidden && (
-        <div className="fixed top-12 right-1 h-[80vh] w-[40vh] bg-white p-4 bg-opacity-90 overflow-auto rounded-lg shadow-lg">
+        <div
+          ref={cartRef}
+          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit w-[40vh] bg-white
+          border border-gray-100 p-4 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar"
+          style={{ zIndex: 9999 }}
+        >
           {isCheckoutVisible === false ? (
             <>
               <CartOrder />
