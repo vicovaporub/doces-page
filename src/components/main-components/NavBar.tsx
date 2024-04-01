@@ -11,15 +11,20 @@ export const NavBar = () => {
 
   return (
     <>
-      <nav className="flex h-[75px] sm:gap-4 gap-4 bg-white sm:justify-between justify-center px-4 sm:px-2 lg:px-16">
-        <Image
-          className="ml-4 p-1 h-[75px] w-[90px] object-contain sm:ml-[10vw] lg:ml-0"
-          src="/images/carol_logo.png"
-          alt="logo"
-          width={100}
-          height={100}
-        />
-        <div className="flex gap-4 lg:gap-8">
+      <nav
+        className="flex h-[75px] sm:gap-4 bg-white shadow-lg   sm:justify-between 
+      justify-center sm:px-16"
+      >
+        <Link href="/">
+          <Image
+            className="sm:ml-4 p-1 h-[75px] w-[90px] object-contain  lg:ml-0"
+            src="/images/carol_logo.png"
+            alt="logo"
+            width={100}
+            height={100}
+          />
+        </Link>
+        <div className="flex gap-4 sm:gap-8 mr-8">
           <Link
             className="items-center text-center justify-center flex "
             href="/"
@@ -33,7 +38,7 @@ export const NavBar = () => {
             <h1 className="font-bold text-l sm:text-xl">Pedidos</h1>
           </Link>
         </div>
-        <div className="flex gap-4 lg:gap-8 pr-4 sm:pr-0">
+        <div className="flex gap-4 sm:gap-8  sm:pr-0">
           <div className="items-center text-center justify-center flex">
             <Login />
           </div>
