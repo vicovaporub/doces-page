@@ -14,20 +14,20 @@ export const Products = () => {
   };
 
   return (
-    <div className="bg-[url('/images/bakery.jpg')] bg-cover bg-center sm:flex justify-between">
-      <div className="sm:flex grid gap-2 justify-center sm:justify-center items-center flex-1">
+    <div className="sm:flex justify-center">
+      <div className="grid grid-cols-2 gap-40 justify-center sm:justify-center items-center">
         {products.map((product) => {
           return (
             <div
               key={product.name}
-              className="flex flex-col bg-white bg-opacity-70 items-center m-4 p-4 rounded-xl"
+              className="flex flex-col items-center m-4 p-4 gap-4 "
             >
               <Image
                 src={product.image}
                 alt={product.name}
                 className="sm:w-80 sm:h-80 w-52 h-52 rounded-full object-cover object-center m-2"
               />
-              <h1 className="text-2xl font-bold">{product.name}</h1>
+              <h1 className="text-2xl font-bold capitalize">{product.name}</h1>
               <h2 className="text-xl font-bold">
                 R$ {product.price.toFixed(2)}
               </h2>

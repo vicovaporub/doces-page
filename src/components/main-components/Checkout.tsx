@@ -55,33 +55,33 @@ export const Checkout = ({
   };
 
   return (
-    <div className="border border-gray-900 p-2 rounded-xl">
-      <h1>Aqui estão todos os produtos que você adicionou ao carrinho!</h1>
+    <div className="rounded-xl p-2">
+      <h1 className="text-lg font-bold mb-8 text-center">Resumo do Pedido</h1>
       {cartList.map((product, index) => {
         return (
-          <div key={index}>
-            <div className="flex items-center mb-6 mt-8">
-              <Image
-                className="rounded-full object-cover object-center w-12 h-12"
-                src={product.image}
-                alt={product.name}
-                width={100}
-                height={100}
-              />
-              <div className="flex ml-4 flex-col ">
-                <h1 className="font-bold capitalize text-center">
-                  {product.name}
-                </h1>
-                <h1>Quantidade: {product.quantity}</h1>
-                <h1>Preço: R${productBundlePrice(product)}</h1>
-              </div>
+          <div key={index} className="flex items-center py-2 border-gray-200">
+            <Image
+              className="rounded-full object-cover object-center w-12 h-12"
+              src={product.image}
+              alt={product.name}
+              width={48}
+              height={48}
+            />
+            <div className="flex flex-col ml-2">
+              <h1 className="font-bold text-sm capitalize">{product.name}</h1>
+              <p>Qtd: {product.quantity}</p>
+              <p>R${productBundlePrice(product)}</p>
             </div>
           </div>
         );
       })}
-      <h1>TOTAL: R${orderPrice.toFixed(2)}</h1>
-      <BackToCartButton onClick={onBackToCartButton} />
-      <PlaceOrderButton onClick={() => onPlaceOrderClick(order)} />
+      <h1 className="font-bold mt-8 text-center justify-center">
+        Total: R${orderPrice.toFixed(2)}
+      </h1>
+      <div className="flex justify-end mt-4">
+        <BackToCartButton onClick={onBackToCartButton} />
+        <PlaceOrderButton onClick={() => onPlaceOrderClick(order)} />
+      </div>
     </div>
   );
 };

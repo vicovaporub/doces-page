@@ -8,7 +8,6 @@ import { useAppSelector } from "@/redux/store";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { ManageProductQuantityInCartButton } from "../buttons/ManageProductQuantityInCartButton";
 import { ClearCartButton } from "../buttons/ClearCartButton";
 
 export const CartOrder = () => {
@@ -42,65 +41,57 @@ export const CartOrder = () => {
   };
   return (
     <>
-      <ul className="space-y-4">
+      <ul className="divide-y divide-gray-200">
         {products.map((product, index) => {
           return (
-            <li
-              className="relative flex justify-between items-start border border-gray-900 rounded-xl p-4"
-              key={index}
-            >
-              <div
-                className="border border-gray-900 rounded-xl h-[13rem] w-[8rem] grid 
-                items-center justify-center p-2 text-center m-2 bg-gray-100"
-              >
-                <h1 className="capitalize text-lg font-bold">{product.name}</h1>
+            <li key={index} className="py-4 flex">
+              <div className="flex items-center justify-center flex-none w-24">
                 <Image
-                  className="rounded-full object-cover object-center w-24 h-24"
+                  className="object-cover w-20 h-20 rounded-full shadow-lg border border-gray-200"
                   src={product.image}
                   alt={product.name}
+                  width={80}
+                  height={80}
                 />
-                <h2 className="text-lg font-medium mt-2">
-                  R$ {product.price.toFixed(2)}
-                </h2>
               </div>
-              <div className="flex flex-col space-y-2 absolute top-20 right-4 items-center ">
-                <div className="flex gap-6">
-                  <div className="bg-yellow-500 text-white rounded-full mt-6 w-8 text-center items-center justify-center font-bold text-xl">
-                    <ManageProductQuantityInCartButton
-                      onClick={() => onDecreaseButtonClick(product)}
-                    >
-                      -
-                    </ManageProductQuantityInCartButton>
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold mt-6">{product.quantity}</p>
-                  </div>
-                  <div className="bg-green-500 text-white rounded-full mt-6 w-8 text-center items-center justify-center font-bold text-xl">
-                    <ManageProductQuantityInCartButton
-                      onClick={() => onIncreaseButtonClick(product)}
-                    >
-                      +
-                    </ManageProductQuantityInCartButton>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-lg font-bold">
+              <div className="flex-grow ml-4 ">
+                <div className="flex justify-between">
+                  <h1 className="text-lg font-medium w-28  capitalize">
+                    {product.name}
+                  </h1>
+                  <p className="text-gray-600">
                     R$ {productBundlePrice(product)}
                   </p>
                 </div>
-                <div className="bg-red-500 text-white rounded-full px-2 py-1 w-[5.2rem]">
-                  <ManageProductQuantityInCartButton
-                    onClick={() => onRemoveProductClick(product)}
+                <div className="flex items-center mt-2">
+                  <button
+                    onClick={() => onDecreaseButtonClick(product)}
+                    className="text-gray-500 hover:text-gray-700"
                   >
-                    Remover
-                  </ManageProductQuantityInCartButton>
+                    -
+                  </button>
+                  <p className="mx-2">{product.quantity}</p>
+                  <button
+                    onClick={() => onIncreaseButtonClick(product)}
+                    className="text-gray-500 hover:text-gray-700"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => onRemoveProductClick(product)}
+                    className="ml-32 text-red-500 hover:text-red-700"
+                  >
+                    Remover Item
+                  </button>
                 </div>
               </div>
             </li>
           );
         })}
       </ul>
-      <p className="text-lg font-bold">Total: R$ {totalOrderPrice}</p>
+      <p className="mt-8 text-lg font-bold">
+        Total do Pedido: R$ {totalOrderPrice}
+      </p>
       <ClearCartButton onClick={() => onClearCartClick()} />
     </>
   );
