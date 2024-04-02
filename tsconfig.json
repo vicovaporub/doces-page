@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/redux/store.ts", "src/redux/root-reducer.js", "src/redux/user/reducer.js", "src/redux/user/action-types.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/redux/store.ts", "src/redux/root-reducer.js", "src/redux/user/reducer.js", "src/redux/user/action-types.js", "src/app/testingpage/page.jsx"],
   "exclude": ["node_modules"]
 }
