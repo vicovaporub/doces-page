@@ -87,8 +87,8 @@ export const CartContainer = () => {
       {!isCartContainerHidden && (
         <div
           ref={cartRef}
-          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit w-[40vh] bg-white
-          border border-gray-100 p-4 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar"
+          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[60vw] bg-white
+          border border-gray-100 p-4 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
           style={{ zIndex: 9999 }}
         >
           {isCheckoutVisible === false ? (
