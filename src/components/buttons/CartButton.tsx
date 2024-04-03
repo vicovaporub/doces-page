@@ -25,7 +25,7 @@ export const CartButton = ({ onClick }: OnClickButtonProps) => {
       />
       {productsQuantity > 0 && (
         <div
-          className="absolute sm:bottom-[7px] bottom-[14px] left-[28px] sm:left-[32px] bg-red-500
+          className="absolute sm:bottom-[7px] bottom-[14px] left-[28px] sm:left-[32px] bg-red-600
          text-white rounded-full sm:w-[23px] w-[22px]
          sm:h-[20px] h-[20px] flex justify-center items-center"
         >
