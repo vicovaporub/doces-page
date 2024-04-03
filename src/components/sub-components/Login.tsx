@@ -131,7 +131,7 @@ export const Login = () => {
   return (
     <div
       ref={loginRef}
-      className="relative justify-center items-center text-center w-[90px] cursor-pointer"
+      className="relative justify-center items-center text-center sm:w-[90px] w-[90px] cursor-pointer"
       style={{ zIndex: 9999 }}
     >
       {user.isLogged ? (
@@ -151,7 +151,7 @@ export const Login = () => {
       ) : (
         <div
           onClick={onLoginButtonClick}
-          className="flex flex-col items-center justify-center"
+          className="flex flex-col items-center justify-center "
         >
           <Image
             className="sm:h-[40px] sm:w-[40px]"
