@@ -13,7 +13,7 @@ export const NavBar = () => {
     <>
       <nav
         className="flex h-[75px] sm:gap-4 bg-white shadow-lg   sm:justify-between 
-      justify-center sm:px-16"
+      justify-center sm:px-16 text-amber-900"
       >
         <Link href="/">
           <Image
