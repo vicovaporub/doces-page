@@ -4,7 +4,7 @@ import { Products } from "./Products";
 
 export const AppContainer = () => {
   return (
-    <div>
+    <div className="max-w-[1900px] flex flex-col justify-center items-center mx-auto">
       <div
         className="bg-orange-100 sm:mt-20 absolute sm:top-[-6rem] sm:left-[30rem] 
       sm:z-[-10] sm:h-[55rem] sm:w-full rounded-full blur-[10rem]"

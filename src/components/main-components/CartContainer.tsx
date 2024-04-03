@@ -90,7 +90,7 @@ export const CartContainer = () => {
         <div
           className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[80vw] bg-white
           border border-gray-100 sm:p-4 p-2 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
-          style={{ zIndex: 9999 }}
+          style={{ zIndex: 999 }}
         >
           {isCheckoutVisible === false ? (
             <>
