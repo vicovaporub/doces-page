@@ -8,15 +8,10 @@ import { useAppSelector } from "@/redux/store";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-import { ClearCartButton } from "../buttons/ClearCartButton";
 
 export const CartOrder = () => {
   const dispatch = useDispatch();
   const products = useAppSelector((state) => state.cartReducer.products);
-
-  const onClearCartClick = () => {
-    dispatch(clearCart());
-  };
 
   const productBundlePrice = (product: ProductType) =>
     (product.price * (product.quantity || 0)).toFixed(2);
@@ -44,17 +39,16 @@ export const CartOrder = () => {
       <ul className="divide-y divide-gray-200">
         {products.map((product, index) => {
           return (
-            <li key={index} className="py-4 flex">
-              <div className="flex items-center justify-center flex-none w-24">
-                <Image
-                  className="object-cover w-20 h-20 rounded-full shadow-lg border border-gray-200"
-                  src={product.image}
-                  alt={product.name}
-                  width={80}
-                  height={80}
-                />
-              </div>
-              <div className="flex-grow ml-4 ">
+            <li key={index} className="sm:py-4 py-1 flex">
+              <Image
+                className="object-cover sm:w-20 sm:h-20 h-16 w-16 rounded-full shadow-lg border border-gray-200"
+                src={product.image}
+                alt={product.name}
+                width={80}
+                height={80}
+              />
+
+              <div className="flex-grow sm:ml-4 ml-1 ">
                 <div className="flex justify-between">
                   <h1 className="text-lg font-medium w-28  capitalize">
                     {product.name}
@@ -63,7 +57,7 @@ export const CartOrder = () => {
                     R$ {productBundlePrice(product)}
                   </p>
                 </div>
-                <div className="flex items-center mt-2">
+                <div className="flex items-center sm:mt-2 sm:ml-0 ml-1">
                   <button
                     onClick={() => onDecreaseButtonClick(product)}
                     className="text-gray-500 hover:text-gray-700"
@@ -89,10 +83,9 @@ export const CartOrder = () => {
           );
         })}
       </ul>
-      <p className="mt-8 text-lg font-bold">
+      <p className="sm:mt-8 text-lg font-bold mt-4">
         Total do Pedido: R$ {totalOrderPrice}
       </p>
-      <ClearCartButton onClick={() => onClearCartClick()} />
     </>
   );
 };

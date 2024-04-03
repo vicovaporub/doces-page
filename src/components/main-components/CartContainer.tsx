@@ -7,6 +7,8 @@ import { OrderType } from "@/types/OrderType";
 import { useAppSelector } from "@/redux/store";
 import { checkoutOrder } from "@/redux/features/orderSlice";
 import { useDispatch } from "react-redux";
+import { ClearCartButton } from "../buttons/ClearCartButton";
+import { clearCart } from "@/redux/features/cartSlice";
 
 export const CartContainer = () => {
   const [order, setOrder] = useState({} as OrderType);
@@ -83,18 +85,22 @@ export const CartContainer = () => {
 
   return (
     <>
-      <CartButton onClick={onCartButtonClick} />
+      <div ref={cartRef}>
+        <CartButton onClick={onCartButtonClick} />
+      </div>
       {!isCartContainerHidden && (
         <div
-          ref={cartRef}
-          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[60vw] bg-white
-          border border-gray-100 p-4 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
+          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[80vw] bg-white
+          border border-gray-100 sm:p-4 p-2 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
           style={{ zIndex: 9999 }}
         >
           {isCheckoutVisible === false ? (
             <>
               <CartOrder />
-              <CheckoutButton onClick={onCheckoutClick} />
+              <div className="flex sm:gap-0 gap-4 justify-center sm:mb-0 mb-2">
+                <ClearCartButton onClick={() => dispatch(clearCart())} />
+                <CheckoutButton onClick={onCheckoutClick} />
+              </div>
             </>
           ) : (
             <Checkout setIsCheckoutVisible={setIsCheckoutVisible} />
