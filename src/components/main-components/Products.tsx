@@ -18,11 +18,8 @@ export const Products = () => {
       <div className="grid sm:grid-cols-2 sm:gap-40 justify-center items-center">
         {products.map((product) => {
           return (
-            <>
-              <div
-                key={product.name}
-                className="flex flex-col items-center sm:m-6 sm:p-6 m-2 p-2 gap-2 sm:gap-4 "
-              >
+            <div key={product.name}>
+              <div className="flex flex-col items-center sm:m-6 sm:p-6 m-2 p-2 gap-2 sm:gap-4 ">
                 <Image
                   src={product.image}
                   alt={product.name}
@@ -42,7 +39,7 @@ export const Products = () => {
                 <AddToCartButton onClick={() => onAddToCartClick(product)} />
               </div>
               <div className="sm:hidden border-b border-gray-300 my-2 "></div>
-            </>
+            </div>
           );
         })}
       </div>
