@@ -84,10 +84,8 @@ export const CartContainer = () => {
   };
 
   return (
-    <>
-      <div ref={cartRef}>
-        <CartButton onClick={onCartButtonClick} />
-      </div>
+    <div ref={cartRef}>
+      <CartButton onClick={onCartButtonClick} />
       {!isCartContainerHidden && (
         <div
           className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[80vw] bg-white
@@ -107,6 +105,6 @@ export const CartContainer = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
