@@ -2,7 +2,7 @@
 import { logIn, logOut } from "@/redux/features/authSlice";
 import { useAppSelector } from "@/redux/store";
 import { UserType } from "@/types/UserType";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import userIcon from "../../../public/userIcon.svg";
 import Image from "next/image";
@@ -12,11 +12,30 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [isLoginHidden, setIsLoginHidden] = useState(true);
   const [isRegisterHidden, setIsRegisterHidden] = useState(true);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   const user = useAppSelector((state) => state.authReducer.value);
 
   const dispatch = useDispatch();
+
+  const loginRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        loginRef.current &&
+        !loginRef.current.contains(event.target as Node)
+      ) {
+        setIsRegisterHidden(true);
+        setIsLoginHidden(true);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const isValidPhoneNumber = (phone: string) => {
     const brPhoneRegex = /^\([1-9]{2}\)\s?9[0-9]{4}-[0-9]{4}$/;
@@ -28,7 +47,6 @@ export const Login = () => {
   };
 
   const onLogoutButtonClick = () => {
-    setIsUserLoggedIn(false);
     setIsRegisterHidden(true);
     dispatch(logOut());
   };
@@ -57,7 +75,6 @@ export const Login = () => {
             isModerator: user?.isModerator,
           })
         );
-        setIsUserLoggedIn(true);
         setIsLoginHidden(true);
       } else if (response.status === 404) {
         setIsRegisterHidden(false);
@@ -103,7 +120,6 @@ export const Login = () => {
         const user = data.user;
         dispatch(logIn({ username: user.username, phone: user.phone }));
         setIsLoginHidden(true);
-        setIsUserLoggedIn(true);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -114,6 +130,7 @@ export const Login = () => {
 
   return (
     <div
+      ref={loginRef}
       className="relative justify-center items-center text-center w-[90px] cursor-pointer"
       style={{ zIndex: 9999 }}
     >
@@ -149,21 +166,36 @@ export const Login = () => {
 
       {!isLoginHidden && (
         <div
-          className="absolute left-1/2 transform -translate-x-1/2 bg-white bg-opacity-70 border
-        w-[195px] justify-center border-gray-900 p-4 rounded-md shadow-lg"
+          className="absolute left-1/2 sm:top-[67px] top-[66px] transform -translate-x-1/2 bg-white bg-opacity-90 border border-gray-100
+        w-[195px] justify-center  p-4 rounded-md shadow-lg"
         >
           {user.isLogged ? (
             <>
-              <h1> ola {user.username}</h1>
-              <button onClick={onLogoutButtonClick}>Logout</button>
+              <h1 className="flex flex-col items-center">
+                <span className="font-bold">Conectado como: </span>
+                <span className="border border-amber-900 py-2 px-2 w-fit text-center rounded-xl m-2">
+                  {user.username}
+                </span>
+              </h1>
+              <button
+                className="bg-red-800 hover:bg-red-700 py-2 px-4
+                    font-bold rounded-xl transition duration-500 ease-in-out
+                    text-white"
+                onClick={onLogoutButtonClick}
+              >
+                Sair
+              </button>
             </>
           ) : (
             <>
-              <label htmlFor="phone" className="text-2xl font-bold mb-4">
+              <label
+                htmlFor="phone"
+                className="text-2xl font-bold mb-4 text-amber-900"
+              >
                 WhatsApp
               </label>
               <input
-                className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
+                className="border border-amber-900 rounded-md w-full py-2 px-4 mb-4"
                 type="tel"
                 id="phone"
                 name="phone"
@@ -174,15 +206,18 @@ export const Login = () => {
               />
               {isRegisterHidden === false && (
                 <>
-                  <p className="text-red-600 text-xs">
+                  <p className="text-red-600 text-xs mb-2">
                     Não encontramos seu número na base de dados, por favor
                     cadastre-o com seu nome completo abaixo:
                   </p>
-                  <label htmlFor="name" className="text-2xl font-bold mb-4">
+                  <label
+                    htmlFor="name"
+                    className="text-2xl font-bold mb-4 text-amber-900"
+                  >
                     Nome Completo
                   </label>
                   <input
-                    className="border border-gray-900 rounded-md w-full py-2 px-4 mb-4"
+                    className="border border-amber-900 rounded-md w-full py-2 px-4 mb-4"
                     type="text"
                     onChange={handleUsernameChange}
                     value={username}
@@ -190,7 +225,9 @@ export const Login = () => {
                   />
                   <button
                     onClick={() => onRegisterButtonClick(username, phone)}
-                    className="btn btn-primary bg-black text-white py-2 px-4 rounded"
+                    className="bg-amber-500 hover:bg-amber-600 py-2 px-4
+                    font-bold rounded-xl transition duration-500 ease-in-out
+                    text-white"
                   >
                     Cadastrar
                   </button>
@@ -199,7 +236,9 @@ export const Login = () => {
               {isRegisterHidden && (
                 <button
                   onClick={() => onAuthClick(phone)}
-                  className="btn btn-primary bg-black text-white py-2 px-4 rounded"
+                  className="bg-amber-500 hover:bg-amber-600 py-2 px-4
+                  font-bold rounded-xl transition duration-500 ease-in-out
+                  text-white"
                 >
                   Entrar
                 </button>
