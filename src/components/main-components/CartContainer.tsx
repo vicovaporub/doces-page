@@ -55,7 +55,7 @@ export const CartContainer = () => {
 
   const onCheckoutClick = () => {
     if (user.isLogged === false) {
-      console.log("Você precisa estar logado para fazer um pedido!");
+      alert("Você precisa fazer o login para realizar um pedido!");
       return;
     }
 
