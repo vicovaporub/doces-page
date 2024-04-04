@@ -173,7 +173,7 @@ export const Login = () => {
             <>
               <h1 className="flex flex-col items-center">
                 <span className="font-bold">Conectado como: </span>
-                <span className="border border-amber-900 py-2 px-2 w-fit text-center rounded-xl m-2">
+                <span className=" py-2 px-2 w-fit text-center rounded-xl m-2">
                   {user.username}
                 </span>
               </h1>
