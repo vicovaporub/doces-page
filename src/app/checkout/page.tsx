@@ -6,7 +6,7 @@ import { OrderType } from "@/types/OrderType";
 import { ProductType } from "@/types/ProductType";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Checkout() {
@@ -20,10 +20,16 @@ export default function Checkout() {
     return (product.price * (product.quantity || 0)).toFixed(2);
   };
 
-  const orderPrice = cartList.reduce(
-    (total, product) => total + product.price * (product.quantity || 0),
-    0
+  const orderPrice = useAppSelector((state) =>
+    state.cartReducer.products.reduce(
+      (total, product) => total + product.price * (product.quantity || 0),
+      0
+    )
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const postOrderToDatabase = async (order: OrderType) => {
     try {
@@ -89,7 +95,9 @@ export default function Checkout() {
             </h1>
             <div className="flex sm:mt-4 sm:mb-0 mb-2 justify-center">
               {loading ? (
-                <p>Processando pedido...</p>
+                <p className="text-center mt-4 text-gray-500">
+                  Processando pedido...
+                </p>
               ) : (
                 <PlaceOrderButton onClick={onPlaceOrderClick} />
               )}
