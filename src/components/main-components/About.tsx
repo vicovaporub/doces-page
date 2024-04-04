@@ -28,10 +28,12 @@ export const About = () => {
           <h1 className="font-bold sm:pt-[20vh] text-center text-amber-800 text-[40px]">
             Doces da Carol
           </h1>
-          <h2 className="sm:py-10 p-4">
-            Olá, essa aqui é a página dos asdoces da carol. Esse aqui é só um
-            texto que eu to colocando para encher linguiça ta bom caroline?
-          </h2>
+          <div className="sm:ml-0 ml-9 ">
+            <p className="sm:py-10 p-4">
+              Olá, essa aqui é a página dos asdoces da carol. Esse aqui é só um
+              texto que eu to colocando para encher linguiça ta bom caroline?
+            </p>
+          </div>
           <div className="flex sm:flex-row flex-col sm:gap-20 items-center">
             <Link
               className="bg-amber-900 text-white w-fit p-2 sm:mt-16 mt-4 rounded-xl hover:bg-amber-800 transition"
