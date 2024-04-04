@@ -2,23 +2,25 @@ import { useEffect, useState, useRef } from "react";
 import { CartButton } from "../buttons/CartButton";
 import { CartOrder } from "./CartOrder";
 import { CheckoutButton } from "../buttons/CheckoutButton";
-import { Checkout } from "./Checkout";
 import { OrderType } from "@/types/OrderType";
 import { useAppSelector } from "@/redux/store";
 import { checkoutOrder } from "@/redux/features/orderSlice";
 import { useDispatch } from "react-redux";
 import { ClearCartButton } from "../buttons/ClearCartButton";
 import { clearCart } from "@/redux/features/cartSlice";
+import { useRouter } from "next/navigation";
 
 export const CartContainer = () => {
   const [order, setOrder] = useState({} as OrderType);
   const [isCartContainerHidden, setIsCartContainerHidden] = useState(true);
-  const [isCheckoutVisible, setIsCheckoutVisible] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const dispatch = useDispatch();
   const cartRef = useRef<HTMLDivElement>(null);
 
   const user = useAppSelector((state) => state.authReducer.value);
   const cartList = useAppSelector((state) => state.cartReducer.products);
+
+  const router = useRouter();
 
   const orderPrice = cartList
     .reduce(
@@ -31,7 +33,6 @@ export const CartContainer = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (cartRef.current && !cartRef.current.contains(event.target as Node)) {
         setIsCartContainerHidden(true);
-        setIsCheckoutVisible(false);
       }
     };
 
@@ -45,13 +46,11 @@ export const CartContainer = () => {
   useEffect(() => {
     if (Object.keys(order).length !== 0) {
       dispatch(checkoutOrder(order));
-      setIsCheckoutVisible(true);
     }
   }, [order, dispatch]);
 
   const onCartButtonClick = () => {
     setIsCartContainerHidden(!isCartContainerHidden);
-    setIsCheckoutVisible(false);
   };
 
   const onCheckoutClick = () => {
@@ -81,6 +80,16 @@ export const CartContainer = () => {
       }),
       status: "pending",
     }));
+
+    setIsRedirecting(true);
+
+    setTimeout(() => {
+      router.push("/checkout");
+      setIsCartContainerHidden(true);
+      setIsRedirecting(false);
+    }, 1000);
+
+    window.scrollTo({ top: 0 });
   };
 
   return (
@@ -89,19 +98,18 @@ export const CartContainer = () => {
       {!isCartContainerHidden && (
         <div
           className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[80vw] bg-white
-          border border-gray-100 sm:p-4 p-2 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
+        border border-gray-100 sm:p-4 p-2 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
           style={{ zIndex: 999 }}
         >
-          {isCheckoutVisible === false ? (
-            <>
-              <CartOrder />
-              <div className="flex sm:gap-0 gap-4 justify-center sm:mb-0 mb-2">
-                <ClearCartButton onClick={() => dispatch(clearCart())} />
-                <CheckoutButton onClick={onCheckoutClick} />
-              </div>
-            </>
-          ) : (
-            <Checkout setIsCheckoutVisible={setIsCheckoutVisible} />
+          <CartOrder />
+          <div className="flex sm:gap-0 gap-4 justify-center sm:mb-0 mb-2">
+            <ClearCartButton onClick={() => dispatch(clearCart())} />
+            <CheckoutButton onClick={onCheckoutClick} />
+          </div>
+          {isRedirecting && (
+            <p className="text-center mt-4 text-gray-500">
+              Redirecionando ao checkout...
+            </p>
           )}
         </div>
       )}
