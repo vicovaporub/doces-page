@@ -88,8 +88,6 @@ export const CartContainer = () => {
       setIsCartContainerHidden(true);
       setIsRedirecting(false);
     }, 1000);
-
-    window.scrollTo({ top: 0 });
   };
 
   return (
@@ -97,20 +95,22 @@ export const CartContainer = () => {
       <CartButton onClick={onCartButtonClick} />
       {!isCartContainerHidden && (
         <div
-          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[80vw] bg-white
-        border border-gray-100 sm:p-4 p-2 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar "
+          className="absolute top-[75px] right-1 sm:max-h-[80vh] sm:h-fit sm:w-[40vh] w-[80vw] bg-white border border-gray-100 sm:p-4 p-2 bg-opacity-90 overflow-hidden rounded-lg shadow-xl custom-scrollbar"
           style={{ zIndex: 999 }}
         >
           <CartOrder />
           <div className="flex sm:gap-0 gap-4 justify-center sm:mb-0 mb-2">
-            <ClearCartButton onClick={() => dispatch(clearCart())} />
-            <CheckoutButton onClick={onCheckoutClick} />
+            {isRedirecting ? (
+              <p className="text-center mt-4 text-gray-500">
+                Redirecionando ao checkout...
+              </p>
+            ) : (
+              <>
+                <ClearCartButton onClick={() => dispatch(clearCart())} />
+                <CheckoutButton onClick={onCheckoutClick} />
+              </>
+            )}
           </div>
-          {isRedirecting && (
-            <p className="text-center mt-4 text-gray-500">
-              Redirecionando ao checkout...
-            </p>
-          )}
         </div>
       )}
     </div>

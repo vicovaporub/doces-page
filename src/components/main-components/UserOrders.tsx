@@ -53,13 +53,13 @@ export const UserOrders = () => {
   return (
     <>
       {user.isLogged === false ? (
-        <div className="max-w-4xl mx-auto min-h-[90vh] p-4">
+        <div className="mx-auto min-h-[90vh] p-4">
           <h1 className="text-2xl font-bold mt-4 mb-4 text-center">
             É necessário fazer o login para ver seus pedidos!
           </h1>
         </div>
       ) : (
-        <div className="sm:max-w-4xl sm:mx-auto sm:min-h-[100vh] p-4">
+        <div className="sm:max-w-[80vh] sm:mx-auto sm:min-h-[100vh] p-4">
           {isNewOrderPlaced && (
             <h1 className="text-green-500 mb-4 text-center">
               Pedido realizado com sucesso! Confira abaixo seus pedidos:
@@ -73,7 +73,7 @@ export const UserOrders = () => {
             {displayedOrders
               .map((order) => (
                 <div
-                  className="border border-gray-300 rounded-lg p-4 flex flex-wrap items-center"
+                  className="border border-gray-300 rounded-lg p-4 flex flex-wrap"
                   key={order._id}
                 >
                   <div className="flex-1 pr-4">
