@@ -31,47 +31,64 @@ export const AdminOrderList = () => {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleGetAllOrders}
       >
-        Get All Orders
+        Carregar Pedidos
       </button>
       <div className="mt-4">
-        {orders.map((order) => (
-          <div
-            key={order._id}
-            className="border border-gray-300 rounded-lg p-4 mb-4"
-          >
-            <h3 className="text-xl font-bold mb-2">{order.username}</h3>
-            <p className="mb-1">{order.phone}</p>
-            <p className="mb-1">{order.date}</p>
-            <p className="mb-1">Total: R${order.total}</p>
-            <p className="mb-1">
-              Status:{" "}
-              <span
-                className={
-                  order.status === "pending"
-                    ? "text-yellow-500"
-                    : order.status === "confirmed"
-                    ? "text-green-500"
-                    : "text-red-500"
-                }
-              >
-                {order.status === "pending"
-                  ? "A confirmar"
-                  : order.status === "confirmed"
-                  ? "Confirmado"
-                  : "Cancelado"}
-              </span>
-            </p>
-            <ul>
-              {order.order.map((item) => (
-                <li key={item.name} className="border-t border-gray-300 pt-2">
-                  <p className="font-bold">{item.name}</p>
-                  <p>Price: R${item.price}</p>
-                  <p>Quantity: {item.quantity}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {orders
+          .map((order) => (
+            <div
+              key={order._id}
+              className="border border-gray-300 rounded-lg p-4 mb-4"
+            >
+              <div className="flex justify-center">
+                <div className="text-center">
+                  <h3 className="text-xl font-bold mb-2">{order.username}</h3>
+                  <p className="mb-1">{order.phone}</p>
+                </div>
+              </div>
+              <div className="flex gap-10 items-center mt-8">
+                <ul className="flex-1">
+                  {order.order.map((item, index) => (
+                    <li
+                      key={item.name}
+                      className={
+                        index < order.order.length - 1
+                          ? "border-b border-gray-300"
+                          : ""
+                      }
+                    >
+                      <p className="font-bold capitalize">{item.name}</p>
+                      <p>Preço: R${item.price}</p>
+                      <p>Quantidade: {item.quantity}</p>
+                    </li>
+                  ))}
+                </ul>
+                <div>
+                  <p className="mb-1">Date: {order.date}</p>
+                  <p className="mb-1 font-bold">Total: R${order.total}</p>
+                  <p className="mb-1">
+                    Status:{" "}
+                    <span
+                      className={
+                        order.status === "pending"
+                          ? "text-yellow-500"
+                          : order.status === "confirmed"
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }
+                    >
+                      {order.status === "pending"
+                        ? "A confirmar"
+                        : order.status === "confirmed"
+                        ? "Confirmado"
+                        : "Cancelado"}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+          .reverse()}
       </div>
     </div>
   );

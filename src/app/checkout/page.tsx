@@ -43,7 +43,6 @@ export default function Checkout() {
       });
 
       if (response.status === 200) {
-        console.log("Pedido realizado com sucesso!");
         router.push("/user-orders?orderPlaced=true");
       } else {
         console.log("Erro ao realizar pedido!");
