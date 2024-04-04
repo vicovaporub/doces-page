@@ -8,7 +8,7 @@ export const PlaceOrderButton = ({ onClick }: OnClickButtonProps) => {
       font-bold py-2 sm:px-3 px-2 rounded-xl transition duration-500 ease-in-out
       text-white"
     >
-      Fazer Pedido
+      Realizar Pedido
     </button>
   );
 };

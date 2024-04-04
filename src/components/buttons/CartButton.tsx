@@ -13,7 +13,7 @@ export const CartButton = ({ onClick }: OnClickButtonProps) => {
 
   return (
     <div
-      className="relative flex justify-center sm:h-[60px] cursor-pointer sm:w-[60px] h-[1000px] w-[50px]"
+      className="relative flex justify-center sm:h-[60px] h-[74px] cursor-pointer sm:w-[60px]  w-[50px]"
       onClick={onClick}
     >
       <Image
