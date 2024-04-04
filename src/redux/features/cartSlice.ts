@@ -57,13 +57,24 @@ export const cart = createSlice({
     ) => {
       return {
         ...state,
-        products: state.products
-          .map((product) =>
-            product.id === action.payload.id
-              ? { ...product, quantity: (product.quantity || 0) - 1 }
-              : product
-          )
-          .filter((product) => (product.quantity || 0) > 0),
+        products: state.products.map((product) =>
+          product.id === action.payload.id
+            ? { ...product, quantity: Math.max((product.quantity || 0) - 1, 0) }
+            : product
+        ),
+      };
+    },
+    setProductQuantityInCart: (
+      state,
+      action: PayloadAction<{ product: ProductType; quantity: number }>
+    ) => {
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product.id === action.payload.product.id
+            ? { ...product, quantity: action.payload.quantity }
+            : product
+        ),
       };
     },
     removeProductFromCart: (state, action: PayloadAction<ProductType>) => {
@@ -83,5 +94,6 @@ export const {
   increaseProductQuantityFromCart,
   decreaseProductQuantityFromCart,
   removeProductFromCart,
+  setProductQuantityInCart,
 } = cart.actions;
 export default cart.reducer;
