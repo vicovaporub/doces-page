@@ -1,24 +1,20 @@
 "use client";
 import Link from "next/link";
 import { Login } from "../sub-components/Login";
-import { UserType } from "@/types/UserType";
-import { useAppSelector } from "@/redux/store";
 import Image from "next/image";
 import { CartContainer } from "./CartContainer";
 
 export const NavBar = () => {
-  const user: UserType = useAppSelector((state) => state.authReducer.value);
-
   return (
     <>
       <nav
         className="flex w-auto h-[75px] sm:gap-4 bg-white shadow-lg 
-      sm:justify-between justify-center sm:px-16 text-amber-900 z-50"
+      sm:justify-between justify-center sm:px-16 text-amber-900 z-50 sticky top-0"
       >
-        <div className="flex items-center gap-3">
-          <Link href="/">
+        <div className="flex items-center gap-3 mx-2">
+          <Link href="/" className="sm:block hidden">
             <Image
-              className="sm:ml-4 ml-2 h-[75px] w-[90px] object-contain  "
+              className="sm:ml-4 ml-2 h-[75px] w-[90px] object-contain p-1 "
               src="/images/carol_logo.png"
               alt="logo"
               width={100}
@@ -36,8 +32,18 @@ export const NavBar = () => {
               <h1 className="font-bold text-l sm:text-xl">Pedidos</h1>
             </Link>
           </div>
+
+          <Link href="/" className="sm:hidden block">
+            <Image
+              className="h-[75px] w-[90px] object-contain ml-2 p-1"
+              src="/images/carol_logo.png"
+              alt="logo"
+              width={100}
+              height={100}
+            />
+          </Link>
         </div>
-        <div className="flex gap-4 sm:gap-8 sm:m-0 m-4  sm:pr-0 items-center">
+        <div className="flex gap-1 sm:gap-8 sm:mr-0 mr-3  sm:pr-0 items-center">
           <div className="flex items-center">
             <Login />
           </div>
