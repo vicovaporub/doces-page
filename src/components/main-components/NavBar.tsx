@@ -8,7 +8,7 @@ export const NavBar = () => {
   return (
     <>
       <nav
-        className="flex w-auto h-[75px] sm:gap-4 bg-white shadow-lg 
+        className="flex w-[100%] h-[75px] sm:gap-4 bg-white shadow-lg 
       sm:justify-between justify-center sm:px-16 text-amber-900 z-50 sticky top-0"
       >
         <div className="flex items-center gap-3 mx-2">

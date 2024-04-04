@@ -4,14 +4,14 @@ import { Products } from "./Products";
 
 export const AppContainer = () => {
   return (
-    <div className="max-w-[1900px] flex flex-col justify-center items-center mx-auto">
+    <>
       <div
-        className="bg-orange-100 sm:mt-20 absolute sm:top-[-6rem] sm:left-[30rem] 
-      sm:z-[-10] sm:h-[55rem] sm:w-full rounded-full blur-[10rem]"
+        className="bg-orange-100 sm:mt-20 absolute top-0 left-0 sm:left-[30rem] 
+        z-[-10] h-screen w-screen sm:w-full rounded-full blur-[10rem] overflow-hidden"
       ></div>
       <About />
       <Separator />
       <Products />
-    </div>
+    </>
   );
 };
