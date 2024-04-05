@@ -29,9 +29,11 @@ export const About = () => {
             Doces da Carol
           </h1>
           <div className="sm:ml-0 ml-9 ">
-            <p className="sm:py-10 p-4">
-              Olá, essa aqui é a página dos asdoces da carol. Esse aqui é só um
-              texto que eu to colocando para encher linguiça ta bom caroline?
+            <p className="sm:py-10 p-4 text-amber-900">
+              Uma breve descrição sobre a loja e os produtos vendidos, com
+              destaque para a qualidade e sabor dos produtos. (A loja é
+              especializada em bolos e doces caseiros, com uma variedade de
+              sabores e tamanhos para todos os gostos e ocasiões).
             </p>
           </div>
           <div className="flex sm:flex-row flex-col sm:gap-20 items-center">

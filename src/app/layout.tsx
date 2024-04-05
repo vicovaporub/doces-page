@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} relative max-w-[1900px]  items-center mx-auto `}
+        className={`${inter.className} relative sm:max-w-[1900px] max-w-[640px]  items-center mx-auto `}
         style={{ overflowX: "hidden" }}
       >
         <ReduxProvider>
